@@ -4,25 +4,16 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { FlightSearchComponent } from './flight-search.component';
+import { FlightService } from './flight.service';
 
-describe('FlightSearchComponent', () => {
-  let component: FlightSearchComponent;
-  let fixture: ComponentFixture<FlightSearchComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FlightSearchComponent ]
-    })
-    .compileComponents();
-  }));
+fdescribe('FlightSearchComponent', () => {
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FlightSearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should not have loaded flights initially', () => {
+    let comp = new FlightSearchComponent(new FlightService(null));
+    expect(comp.flights.length).toBe(0);
   });
+
 });

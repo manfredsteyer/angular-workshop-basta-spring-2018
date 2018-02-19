@@ -7,13 +7,18 @@ import { FlightService } from './flight.service';
   selector: 'flight-search',
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
-  providers: [FlightService]
+  //providers: [FlightService]
 })
 export class FlightSearchComponent implements OnInit {
 
   from: string;
   to: string;
-  flights: Array<Flight> = [];
+  
+  // *ngFor="let f of flights" 
+  get flights(): Array<Flight> {
+    return this.flightService.flights;
+  }
+  
   selectedFlight: Flight;
 
   basket: object = {
@@ -27,10 +32,9 @@ export class FlightSearchComponent implements OnInit {
   }
 
   search(): void {
-    this.flightService.find(this.from, this.to).subscribe(
-      flights => { this.flights = flights; },
-      err => { console.error('error loading flights', err); }
-    );
+    
+    this.flightService.load(this.from, this.to);
+
   }
 
   select(f: Flight): void {
